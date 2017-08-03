@@ -18,8 +18,22 @@ app.set('port', 8666);
 var pool = mysql.createPool({
   connectionLimit: 10,
   host: 'mysql.eecs.oregonstate.edu',
-  user: 'cs340_',
-  password: '',
-  database: 'cs340_',
-  dateStrings: 'date'
+  user: 'cs340_jonest3',
+  password: '2302',
+  database: 'cs340_jonest3',
+});
+
+app.use(function(req,res){
+        res.status(404);
+        res.render('404');
+});
+
+app.use(function(err, req, res, next){
+        console.error(err.stack);
+        res.status(500);
+        res.render('500');
+});
+
+app.listen(app.get('port'), function(){
+        console.log('Express started on http://localhost:' + app.get('port') + '; press C    trl-C to terminate.');
 });
