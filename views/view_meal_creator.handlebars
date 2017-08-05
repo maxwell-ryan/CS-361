@@ -1,0 +1,57 @@
+
+
+<h2>{{this.meal.name}}</h2>
+<h4>{{this.meal.description}}</h4>
+
+<img src="{{this.meal.image}}" alt="Meal image could not be loaded"></img>
+
+<h5>Ingredients:</h5>
+<table>
+    <tbody>
+        {{#each this.activeIngredientsName}}
+          <tr><td>{{this}}</td></tr>
+        {{/each}}
+</table>
+<br>
+<h5>Details:</h5>
+<table>
+    <tbody>
+        <tr>
+            <td>Genre:</td>
+            <td>{{this.meal.genre}}</td>
+        </tr>
+        <tr>
+            <td>Preparation Time:</td>
+            <td>{{this.meal.prep_time}} minutes</td>
+        </tr>
+        <tr>
+            <td>Uploaded by user:</td>
+            <td>{{this.meal.username_id}}</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<h5>Availability</h5>
+<table>
+    <tbody>
+        <tr>
+            <td>Restaurant:</td>
+            {{#if this.restaurant}}
+                <td>{{this.restaurant.name}}
+            {{else}}
+                <td>{{No currently known restaurant for this recipe.}}</td>
+            {{/if}}
+        </tr>
+        {{#if this.restaurant}}
+            <tr>
+                <td>{{this.restaurant.street_name}}</td>
+            </tr>
+            <tr>
+                <td>{{this.restaurant.city}}, {{this.restaurant.state}}</td>
+            </tr>
+        {{/if}}
+    </tbody>
+</table>
+<br><br>
+
+<a href="http://localhost:8666/remove/meal?id={{this.meal.meal_id}}">Delete Meal from SmartChoice.com</a> 
