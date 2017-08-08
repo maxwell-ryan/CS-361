@@ -23,13 +23,14 @@ var pool = mysql.createPool({
   database: 'cs340_jonest3',
 });
 
-app.post('/viewMeal', function(req, res, next){
+app.get('/viewMeal', function(req, res, next){
   var context = {};
-  var request = req.body;
+
+  var requestedId = req.query.id;
 
   //if request body contains a meal_id value, query all attributes of that meal
-    if (request.id) {
-        pool.query("SELECT `meal_id`, `name`, `description`, `genre`, `prep_time`, `image`, `username_id`, `restaurant_id` FROM meals WHERE `meal_id` = ?", [request.id], function(err, rows, fields){
+    if (requestedId) {
+        pool.query("SELECT `meal_id`, `name`, `description`, `genre`, `prep_time`, `image`, `username_id`, `restaurant_id` FROM meals WHERE `meal_id` = ?", [requestedId], function(err, rows, fields){
 
             if (err){
               next(err);
@@ -40,7 +41,7 @@ app.post('/viewMeal', function(req, res, next){
             context.meal = rows[0];
             console.log(context.meal);
 
-            pool.query("SELECT `ingredient_id`, `meal_id` FROM contains WHERE `meal_id` = ?", [request.id], function(err, rows, fields){
+            pool.query("SELECT `ingredient_id`, `meal_id` FROM contains WHERE `meal_id` = ?", [requestedId], function(err, rows, fields){
 
                 if (err) {
                     next(err);
